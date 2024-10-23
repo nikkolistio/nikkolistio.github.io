@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enkripsi Dan Dekripsi AES</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, button, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        textarea {
+            resize: none;
+            height: 100px;
+            font-family: monospace;
+        }
+        .result {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enkripsi Dan Dekripsi AES</h1>
+	<h5>Nikko Listio Wicaksono  23.51.1416</h5>
+    <div class="container">
+        <label for="inputText">Teks yang ingin dienkripsi:</label>
+        <input type="text" id="inputText" placeholder="Masukkan teks di sini">
+
+        <label for="key">Kunci Enkripsi:</label>
+        <input type="text" id="key" placeholder="Masukkan kunci di sini">
+
+        <button onclick="encryptText()">Enkripsi</button>
+        <button onclick="decryptText()">Dekripsi</button>
+
+        <h3 class="result">Hasil Enkripsi/Dekripsi:</h3>
+        <textarea id="output" readonly></textarea>
+    </div>
+
+    <script>
+        function encryptText() {
+            var inputText = document.getElementById("inputText").value;
+            var key = document.getElementById("key").value;
+
+            // Enkripsi menggunakan AES
+            var encrypted = CryptoJS.AES.encrypt(inputText, key).toString();
+
+            document.getElementById("output").value = encrypted;
+        }
+
+        function decryptText() {
+            var encryptedText = document.getElementById("output").value;
+            var key = document.getElementById("key").value;
+
+            // Dekripsi menggunakan AES
+            var decrypted = CryptoJS.AES.decrypt(encryptedText, key);
+            var decryptedText = decrypted.toString(CryptoJS.enc.Utf8);
+
+            document.getElementById("output").value = decryptedText || "Dekripsi gagal, kunci mungkin salah.";
+        }
+    </script>
+</body>
+</html>
